@@ -1,5 +1,6 @@
 import os, glob, shutil, mimetypes, math
 from sorting_types.global_variables import SORT_KEYS
+from sorting_types.jpg_config import sortJpgByDate
 def dictUnion(d1, d2):
     '''
     Returns dict that is union of two dicts d1, d2
@@ -125,7 +126,11 @@ def sortFiles(fpath):
             types.append(item)
     
     for tp in types:
-        if tp in SORT_KEYS:
+        if tp == "jpg":
+            os.chdir(tp)
+            sortJpgByDate()
+            os.chdir("..")
+        elif tp in SORT_KEYS:
             os.chdir(tp)
             sortAndRename(tp)
             os.chdir("..")
